@@ -1,4 +1,4 @@
-# ML FOundations in C++
+# ML Foundations in C++
 
 A C++ project focused on understanding and implementing the core foundations of Machine Learning from scratch.
 
