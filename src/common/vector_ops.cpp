@@ -67,9 +67,7 @@ double mean(const std::vector<double>& values) {
         sum += v;
     }
 
-    double result = sum / values.size();
-
-    return result;
+    return sum / values.size();
 }
 
 } // namespace ml::common

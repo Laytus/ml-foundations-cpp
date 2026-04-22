@@ -44,10 +44,10 @@ Checklist:
 **Time:** 3–5 days
 
 - [x] Prediction
-- [ ] MSE loss
-- [ ] Gradient
-- [ ] GD training
-- [ ] Convergence analysis
+- [x] MSE loss
+- [x] Gradient
+- [x] GD training
+- [x] Convergence analysis
 
 ---
 

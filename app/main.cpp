@@ -24,6 +24,20 @@ void print_dataset(const ml::common::Dataset& dataset, const std::string& name) 
     print_vector(dataset.targets);
 }
 
+void print_snapshot(const ml::TrainingSnapshot& snapshot) {
+    std::cout << "Epoch:  " << snapshot.epoch << "\n";
+    std::cout << "MSE:    " << snapshot.mse << "\n";
+    std::cout << "Weight: " << snapshot.weight << "\n";
+    std::cout << "Bias:   " << snapshot.bias<< "\n";
+}
+
+void print_history(const std::vector<ml::TrainingSnapshot>& history) {
+    for (const auto& snapshot : history) {
+        print_snapshot(snapshot);
+        std::cout << "--------------------\n";
+    }
+}
+
 int main() {
     // ---------------------
     // LINEAR REGRESSION TEST
@@ -114,19 +128,101 @@ int main() {
     // SPLIT DATASET TEST
     // ---------------------
 
-    try {
-        ml::common::Dataset dataset = ml::common::load_csv("data/test_linear.csv");
+    // try {
+    //     ml::common::Dataset dataset = ml::common::load_csv("data/test_linear.csv");
 
-        auto [train_dataset, test_dataset] = ml::common::train_test_split(dataset, 0.75);
+    //     auto [train_dataset, test_dataset] = ml::common::train_test_split(dataset, 0.75);
 
-        std::cout << "Full dataset loaded successfully.\n\n";
+    //     std::cout << "Full dataset loaded successfully.\n\n";
 
-        print_dataset(train_dataset, "Train");
-        std::cout << "\n";
-        print_dataset(test_dataset, "Test");
-    } catch (const std::exception& e) {
-        std::cout << "Error: " << e.what() << "\n";
-    }
+    //     print_dataset(train_dataset, "Train");
+    //     std::cout << "\n";
+    //     print_dataset(test_dataset, "Test");
+    // } catch (const std::exception& e) {
+    //     std::cout << "Error: " << e.what() << "\n";
+    // }
 
+
+    // ---------------------
+    // LINEAR REGRESSION::MSE TEST
+    // ---------------------
+    
+    // ml::LinearRegression model;
+    
+    // // model.set_parameters(2.0, 1.0);
+    // model.set_parameters(0.0, 0.0);
+    
+    // std::cout << "Model parameters:\n";
+    // std::cout << "weight = " << model.weight() << "\n";
+    // std::cout << "bias   = " << model.bias() << "\n";
+    
+    // std::vector<double> xs = {1.0, 2.0, 3.0};
+    // std::vector<double> ys = {3.0, 5.0, 7.0};
+    
+    // std::cout << "\nMSE: " << model.mse(xs, ys) << "\n";
+    
+    // std::cout << "\nGradients:\n";
+    // std::cout << model.gradient(xs, ys).first << "\n";
+    // std::cout << model.gradient(xs, ys).second << "\n";
+    
+    // double learning_rate = 0.1;
+    
+    // std::cout << "\nGDS:\n";
+    // model.gradient_descent_step(xs, ys, learning_rate);
+    
+    // std::cout << "Model parameters:\n";
+    // std::cout << "weight = " << model.weight() << "\n";
+    // std::cout << "bias   = " << model.bias() << "\n";
+    
+    // std::cout << "\nMSE: " << model.mse(xs, ys) << "\n";
+    
+    // std::size_t epochs = 10;
+    
+    // std::cout << "\nFit Batch:\n";
+    // model.fit_batch(xs, ys, learning_rate, epochs);
+    
+    // std::cout << "Model parameters:\n";
+    // std::cout << "weight = " << model.weight() << "\n";
+    // std::cout << "bias   = " << model.bias() << "\n";
+    
+    // std::cout << "\nMSE: " << model.mse(xs, ys) << "\n";
+    
+    
+    // ---------------------
+    // LINEAR REGRESSION Convergence analysis for Linear Regression with batch GD TEST
+    // ---------------------
+    ml::LinearRegression model;
+    
+    // model.set_parameters(2.0, 1.0);
+    model.set_parameters(0.0, 0.0);
+    
+    std::cout << "Model parameters:\n";
+    std::cout << "weight = " << model.weight() << "\n";
+    std::cout << "bias   = " << model.bias() << "\n";
+    
+    std::vector<double> xs = {1.0, 2.0, 3.0};
+    std::vector<double> ys = {3.0, 5.0, 7.0};
+    
+    std::cout << "\nMSE: " << model.mse(xs, ys) << "\n";
+
+    double learning_rate = 0.1;
+    std::size_t epochs = 50;
+
+    // std::cout << "\nFit Batch:\n";
+    // model.fit_batch(xs, ys, learning_rate, epochs);
+    
+    // std::cout << "Model parameters:\n";
+    // std::cout << "weight = " << model.weight() << "\n";
+    // std::cout << "bias   = " << model.bias() << "\n";
+    
+    // std::cout << "\nMSE: " << model.mse(xs, ys) << "\n";
+    
+    std::cout << "\nConvergence analysis with batch GD:\n";
+    std::vector<ml::TrainingSnapshot> history = model.fit_batch_with_history(xs, ys, learning_rate, epochs);
+    print_history(history);
+
+    std::cout << "Epochs: " << epochs << "\n";
+    std::cout << "History size: " << history.size() << "\n";
+    
     return 0;
 }
