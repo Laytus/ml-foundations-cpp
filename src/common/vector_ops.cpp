@@ -63,11 +63,26 @@ double mean(const std::vector<double>& values) {
 
     double sum = 0.0;
 
-    for (double v : values) {
-        sum += v;
+    for (double value : values) {
+        sum += value;
     }
 
     return sum / values.size();
+}
+
+double population_standard_deviation(const std::vector<double>& values, double mean) {
+    if (values.empty()) {
+        throw std::invalid_argument("population_standard_deviation: vector must not be empty");
+    }
+
+    double sum = 0.0;
+
+    for (double value : values) {
+        double diff = value - mean;
+        sum += diff * diff;
+    }
+
+    return std::sqrt(sum / values.size());
 }
 
 } // namespace ml::common

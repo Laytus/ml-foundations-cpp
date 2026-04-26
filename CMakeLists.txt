@@ -16,7 +16,11 @@ add_library(ml_core
     src/common/vector_ops.cpp
     src/common/csv_loader.cpp
     src/common/data_split.cpp
+    src/common/feature_scaling.cpp
+    src/common/activation_functions.cpp
+    src/common/loss_functions.cpp
     src/linear_regression/linear_regression.cpp
+    src/logistic_regression/logistic_regression.cpp
     # src/logistic_regression/logistic_regression.cpp
     # src/knn/knn.cpp
     # src/decision_tree/decision_tree.cpp

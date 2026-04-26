@@ -57,11 +57,11 @@ Checklist:
 
 **Time:** 3–5 days
 
-- [ ] Batch GD
-- [ ] SGD
-- [ ] Learning rate experiments
-- [ ] Stability analysis
-- [ ] Convergence behavior
+- [x] Batch GD
+- [x] SGD
+- [x] Learning rate experiments
+- [x] Stability analysis
+- [x] Convergence behavior
 
 ---
 
@@ -71,9 +71,9 @@ Checklist:
 
 **Time:** 1–2 days
 
-- [ ] Min-max scaling
-- [ ] Standardization
-- [ ] Compare results
+- [x] Min-max scaling
+- [x] Standardization
+- [x] Compare results
 
 ---
 
@@ -83,10 +83,11 @@ Checklist:
 
 **Time:** 4–6 days
 
-- [ ] Sigmoid
-- [ ] Cross-entropy
-- [ ] Training loop
-- [ ] Predictions
+- [x] Sigmoid
+- [x] Binary prediction interpretation
+- [x] Cross-entropy
+- [x] Gradient / training loop
+- [x] Predictions
 
 ---
 

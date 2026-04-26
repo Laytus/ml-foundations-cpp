@@ -18,4 +18,6 @@ double dot(const std::vector<double>& a,
 
 double mean(const std::vector<double>& values);
 
+double population_standard_deviation(const std::vector<double>& values, double mean);
+
 } // namespace ml::common
