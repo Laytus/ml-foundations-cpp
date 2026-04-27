@@ -97,9 +97,9 @@ Checklist:
 
 **Time:** 1–2 days
 
-- [ ] Accuracy
-- [ ] Precision / Recall
-- [ ] Confusion matrix
+- [x] Accuracy
+- [x] Precision / Recall
+- [x] Confusion matrix
 
 ---
 

@@ -6,6 +6,7 @@
 #include "ml/common/feature_scaling.hpp"
 #include "ml/common/activation_functions.hpp"
 #include "ml/common/loss_functions.hpp"
+#include "ml/common/evaluation_metrics.hpp"
 
 #include <iostream>
 #include <vector>
@@ -183,6 +184,13 @@ void print_batch_gd_compact_comparison(
     std::cout << "Stability status:     " << stability_status_to_string(stability.status) << "\n";
     std::cout << "Convergence status:   " << convergence_status_to_string(convergence.status) << "\n";
     std::cout << "Relative improvement: " << convergence.relative_improvement << "\n";
+}
+
+void print_confusion_matrix(const ml::common::ConfusionMatrix& matrix) {
+    std::cout << "TN: " << matrix.true_negatives << "\n";
+    std::cout << "FP: " << matrix.false_positives << "\n";
+    std::cout << "FN: " << matrix.false_negatives << "\n";
+    std::cout << "TP: " << matrix.true_positives<< "\n";
 }
 
 int main() {
@@ -741,82 +749,196 @@ int main() {
     //           << ml::common::binary_cross_entropy(y_values, y_pred_after) << "\n";
 
 
+    // // ---------------------
+    // // LOGISTIC REGRESSION – Predictions
+    // // ---------------------
+    // ml::LogisticRegression model;
+    // model.set_parameters(0.0, 0.0);
+
+    // std::vector<double> x_values = {0.0, 1.0};
+    // std::vector<double> y_values = {0.0, 1.0};
+
+    // // Test 1: scalar prediction before training
+    // double x = 1.0;
+    // std::cout << "\nLogistic Regression Predictions:\n";
+    // std::cout << "\nScalar prediction before training:\n";
+    // std::cout << "x: " << x << "\n";
+    // std::cout << "predict_proba(x): " << model.predict_proba(x) << "\n";
+    // std::cout << "predict(x):       " << model.predict(x) << "\n";
+
+    // // Test 2: vector prediction before training
+    // std::cout << "\nVector prediction before training:\n";
+    // std::cout << "x_values: ";
+    // print_vector(x_values);
+
+    // std::vector<double> y_pred_before = model.predict_proba(x_values);
+    // std::vector<int> y_class_before = model.predict(x_values);
+
+    // std::cout << "predict_proba(x_values): ";
+    // print_vector(y_pred_before);
+    // std::cout << "predict(x_values):       ";
+    // print_vector(y_class_before);
+
+    // std::cout << "BCE before training: "
+    //           << ml::common::binary_cross_entropy(y_values, y_pred_before) << "\n";
+
+    // // Test 3: train the model
+    // double learning_rate = 0.01;
+    // std::size_t epochs = 20;
+
+    // std::cout << "\nTraining with fit_batch:\n";
+    // std::cout << "learning_rate: " << learning_rate << "\n";
+    // std::cout << "epochs:        " << epochs << "\n";
+
+    // model.fit_batch(x_values, y_values, learning_rate, epochs);
+
+    // std::cout << "Parameters after training:\n";
+    // std::cout << "weight = " << model.weight() << "\n";
+    // std::cout << "bias   = " << model.bias() << "\n";
+
+    // // Test 4: scalar prediction after training
+    // std::cout << "\nScalar prediction after training:\n";
+    // std::cout << "x: " << x << "\n";
+    // std::cout << "predict_proba(x): " << model.predict_proba(x) << "\n";
+    // std::cout << "predict(x):       " << model.predict(x) << "\n";
+
+    // // Test 5: vector prediction after training
+    // std::cout << "\nVector prediction after training:\n";
+    // std::cout << "x_values: ";
+    // print_vector(x_values);
+
+    // std::vector<double> y_pred_after = model.predict_proba(x_values);
+    // std::vector<int> y_class_after = model.predict(x_values);
+
+    // std::cout << "predict_proba(x_values): ";
+    // print_vector(y_pred_after);
+    // std::cout << "predict(x_values):       ";
+    // print_vector(y_class_after);
+
+    // std::cout << "BCE after training: "
+    //           << ml::common::binary_cross_entropy(y_values, y_pred_after) << "\n";
+
+    // // Test 6: empty vector should throw
+    // std::cout << "\nEmpty-vector prediction test:\n";
+    // try {
+    //     std::vector<double> empty_values{};
+    //     std::vector<int> empty_predictions = model.predict(empty_values);
+    //     std::cout << "predict(empty_values): ";
+    //     print_vector(empty_predictions);
+    // } catch (const std::invalid_argument& e) {
+    //     std::cout << "Caught error: " << e.what() << "\n";
+    // }
+
+    // // ---------------------
+    // // EVALUATION METRICS – Accuracy
+    // // ---------------------
+    // std::cout << "Accuracy:\n";
+
+    // // std::vector<int> y_true = {0, 1, 1, 0};
+    // // std::vector<int> y_pred = {0, 1, 1, 0};
+    // // std::vector<int> y_pred = {0, 1, 0, 0};
+    // // std::vector<int> y_true = {0, 1};
+    // // std::vector<int> y_pred = {1, 0};
+    // // std::vector<int> y_pred = {1, 0, 1};
+    // // std::vector<int> y_true = {};
+    // // std::vector<int> y_pred = {};
+    // std::vector<int> y_true = {0, 1};
+    // std::vector<int> y_pred = {0, 2};
+    
+    // std::cout << "y_true: ";
+    // print_vector(y_true);
+
+    // std::cout << "y_pred: ";
+    // print_vector(y_pred);
+
+    // try {
+    //     double acc = ml::common::accuracy(y_true, y_pred);
+    //     std::cout << "Accuracy: " << acc << "\n";
+    // } catch (const std::invalid_argument& e) {
+    //     std::cout << "Caught error: " << e.what() << "\n";
+    // }
+    
+    
+    // // ---------------------
+    // // EVALUATION METRICS – Precision / Recall
+    // // ---------------------
+    
+    // // std::vector<int> y_true = {0, 1, 1, 0};
+    // // std::vector<int> y_pred = {0, 1, 1, 0};
+    // // std::vector<int> y_pred = {1, 1, 1, 0}; // one FP
+    // // std::vector<int> y_pred = {0, 1, 0, 0}; // one FN
+    // // std::vector<int> y_pred = {0, 0, 0, 0}; // no predicted positives
+    // // std::vector<int> y_true = {0, 0, 0, 0}; // no true positives in dataset
+    // // std::vector<int> y_pred = {0, 1, 0, 1}; // no true positives in dataset
+    
+    
+    // // std::vector<int> y_true = {0, 1}; // size mismatch
+    // // std::vector<int> y_pred = {1, 0, 1}; // size mismatch
+    // // std::vector<int> y_true = {}; // empty vectors
+    // // std::vector<int> y_pred = {}; // empty vectors
+    // std::vector<int> y_true = {0, 2}; // invalid label
+    // std::vector<int> y_pred = {0, 3}; // invalid label
+    
+    // std::cout << "Evaluation Metrics – Precision & Recall:\n";
+
+    // std::cout << "y_true: ";
+    // print_vector(y_true);
+    
+    // std::cout << "y_pred: ";
+    // print_vector(y_pred);
+    
+    // try {
+    //     double precision = ml::common::precision(y_true, y_pred);
+    //     std::cout << "Precision: " << precision << "\n";
+        
+    //     double recall = ml::common::recall(y_true, y_pred);
+    //     std::cout << "Recall: " << recall << "\n";
+    // } catch (const std::invalid_argument& e) {
+    //     std::cout << "Caught error: " << e.what() << "\n";
+    // }
+    
+    
     // ---------------------
-    // LOGISTIC REGRESSION – Predictions
+    // EVALUATION METRICS – Confusion Matrix
     // ---------------------
-    ml::LogisticRegression model;
-    model.set_parameters(0.0, 0.0);
+    
+    // std::vector<int> y_true = {0, 1, 1, 0};
+    // std::vector<int> y_pred = {0, 1, 0, 0}; // mixed example
+    // std::vector<int> y_pred = {0, 1, 1, 0}; // perfect predictions
+    // std::vector<int> y_true = {0, 1}; // all wrong
+    // std::vector<int> y_pred = {1, 0}; // all wrong
+    // std::vector<int> y_pred = {0, 0, 0, 0}; // only negative predictions
+    // std::vector<int> y_pred = {1, 1, 1, 1}; // only positive predictions
+    
+    
+    // std::vector<int> y_true = {0, 1}; // size mismatch
+    // std::vector<int> y_pred = {1, 0, 1}; // size mismatch
+    // std::vector<int> y_true = {}; // empty vectors
+    // std::vector<int> y_pred = {}; // empty vectors
+    std::vector<int> y_true = {0, 1}; // invalid label
+    std::vector<int> y_pred = {0, 3}; // invalid label
+    
+    std::cout << "Evaluation Metrics – Confusion Matrix:\n";
 
-    std::vector<double> x_values = {0.0, 1.0};
-    std::vector<double> y_values = {0.0, 1.0};
-
-    // Test 1: scalar prediction before training
-    double x = 1.0;
-    std::cout << "\nLogistic Regression Predictions:\n";
-    std::cout << "\nScalar prediction before training:\n";
-    std::cout << "x: " << x << "\n";
-    std::cout << "predict_proba(x): " << model.predict_proba(x) << "\n";
-    std::cout << "predict(x):       " << model.predict(x) << "\n";
-
-    // Test 2: vector prediction before training
-    std::cout << "\nVector prediction before training:\n";
-    std::cout << "x_values: ";
-    print_vector(x_values);
-
-    std::vector<double> y_pred_before = model.predict_proba(x_values);
-    std::vector<int> y_class_before = model.predict(x_values);
-
-    std::cout << "predict_proba(x_values): ";
-    print_vector(y_pred_before);
-    std::cout << "predict(x_values):       ";
-    print_vector(y_class_before);
-
-    std::cout << "BCE before training: "
-              << ml::common::binary_cross_entropy(y_values, y_pred_before) << "\n";
-
-    // Test 3: train the model
-    double learning_rate = 0.01;
-    std::size_t epochs = 20;
-
-    std::cout << "\nTraining with fit_batch:\n";
-    std::cout << "learning_rate: " << learning_rate << "\n";
-    std::cout << "epochs:        " << epochs << "\n";
-
-    model.fit_batch(x_values, y_values, learning_rate, epochs);
-
-    std::cout << "Parameters after training:\n";
-    std::cout << "weight = " << model.weight() << "\n";
-    std::cout << "bias   = " << model.bias() << "\n";
-
-    // Test 4: scalar prediction after training
-    std::cout << "\nScalar prediction after training:\n";
-    std::cout << "x: " << x << "\n";
-    std::cout << "predict_proba(x): " << model.predict_proba(x) << "\n";
-    std::cout << "predict(x):       " << model.predict(x) << "\n";
-
-    // Test 5: vector prediction after training
-    std::cout << "\nVector prediction after training:\n";
-    std::cout << "x_values: ";
-    print_vector(x_values);
-
-    std::vector<double> y_pred_after = model.predict_proba(x_values);
-    std::vector<int> y_class_after = model.predict(x_values);
-
-    std::cout << "predict_proba(x_values): ";
-    print_vector(y_pred_after);
-    std::cout << "predict(x_values):       ";
-    print_vector(y_class_after);
-
-    std::cout << "BCE after training: "
-              << ml::common::binary_cross_entropy(y_values, y_pred_after) << "\n";
-
-    // Test 6: empty vector should throw
-    std::cout << "\nEmpty-vector prediction test:\n";
+    std::cout << "y_true: ";
+    print_vector(y_true);
+    
+    std::cout << "y_pred: ";
+    print_vector(y_pred);
+    
     try {
-        std::vector<double> empty_values{};
-        std::vector<int> empty_predictions = model.predict(empty_values);
-        std::cout << "predict(empty_values): ";
-        print_vector(empty_predictions);
+        // double acc = ml::common::accuracy(y_true, y_pred);
+        // std::cout << "Accuracy: " << acc << "\n";
+
+        // double precision = ml::common::precision(y_true, y_pred);
+        // std::cout << "Precision: " << precision << "\n";
+        
+        // double recall = ml::common::recall(y_true, y_pred);
+        // std::cout << "Recall: " << recall << "\n";
+        
+        ml::common::ConfusionMatrix matrix = ml::common::confusion_matrix(y_true, y_pred);
+        std::cout << "Confusion Matrix:\n";
+        print_confusion_matrix(matrix);
     } catch (const std::invalid_argument& e) {
         std::cout << "Caught error: " << e.what() << "\n";
     }

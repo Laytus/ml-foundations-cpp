@@ -19,6 +19,7 @@ add_library(ml_core
     src/common/feature_scaling.cpp
     src/common/activation_functions.cpp
     src/common/loss_functions.cpp
+    src/common/evaluation_metrics.cpp
     src/linear_regression/linear_regression.cpp
     src/logistic_regression/logistic_regression.cpp
     # src/logistic_regression/logistic_regression.cpp
