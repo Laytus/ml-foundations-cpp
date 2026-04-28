@@ -1,5 +1,7 @@
 #include "ml/linear_regression/linear_regression.hpp"
 #include "ml/logistic_regression/logistic_regression.hpp"
+#include "ml/knn/knn.hpp"
+#include "ml/knn/knn_utils.hpp"
 #include "ml/common/vector_ops.hpp"
 #include "ml/common/csv_loader.hpp"
 #include "ml/common/data_split.hpp"
@@ -7,6 +9,7 @@
 #include "ml/common/activation_functions.hpp"
 #include "ml/common/loss_functions.hpp"
 #include "ml/common/evaluation_metrics.hpp"
+#include "ml/common/distance_metrics.hpp"
 
 #include <iostream>
 #include <vector>
@@ -898,49 +901,170 @@ int main() {
     // }
     
     
-    // ---------------------
-    // EVALUATION METRICS – Confusion Matrix
-    // ---------------------
+    // // ---------------------
+    // // EVALUATION METRICS – Confusion Matrix
+    // // ---------------------
+    // // std::vector<int> y_true = {0, 1, 1, 0};
+    // // std::vector<int> y_pred = {0, 1, 0, 0}; // mixed example
+    // // std::vector<int> y_pred = {0, 1, 1, 0}; // perfect predictions
+    // // std::vector<int> y_true = {0, 1}; // all wrong
+    // // std::vector<int> y_pred = {1, 0}; // all wrong
+    // // std::vector<int> y_pred = {0, 0, 0, 0}; // only negative predictions
+    // // std::vector<int> y_pred = {1, 1, 1, 1}; // only positive predictions
     
-    // std::vector<int> y_true = {0, 1, 1, 0};
-    // std::vector<int> y_pred = {0, 1, 0, 0}; // mixed example
-    // std::vector<int> y_pred = {0, 1, 1, 0}; // perfect predictions
-    // std::vector<int> y_true = {0, 1}; // all wrong
-    // std::vector<int> y_pred = {1, 0}; // all wrong
-    // std::vector<int> y_pred = {0, 0, 0, 0}; // only negative predictions
-    // std::vector<int> y_pred = {1, 1, 1, 1}; // only positive predictions
     
+    // // std::vector<int> y_true = {0, 1}; // size mismatch
+    // // std::vector<int> y_pred = {1, 0, 1}; // size mismatch
+    // // std::vector<int> y_true = {}; // empty vectors
+    // // std::vector<int> y_pred = {}; // empty vectors
+    // std::vector<int> y_true = {0, 1}; // invalid label
+    // std::vector<int> y_pred = {0, 3}; // invalid label
     
-    // std::vector<int> y_true = {0, 1}; // size mismatch
-    // std::vector<int> y_pred = {1, 0, 1}; // size mismatch
-    // std::vector<int> y_true = {}; // empty vectors
-    // std::vector<int> y_pred = {}; // empty vectors
-    std::vector<int> y_true = {0, 1}; // invalid label
-    std::vector<int> y_pred = {0, 3}; // invalid label
-    
-    std::cout << "Evaluation Metrics – Confusion Matrix:\n";
+    // std::cout << "Evaluation Metrics – Confusion Matrix:\n";
 
-    std::cout << "y_true: ";
-    print_vector(y_true);
+    // std::cout << "y_true: ";
+    // print_vector(y_true);
     
-    std::cout << "y_pred: ";
-    print_vector(y_pred);
+    // std::cout << "y_pred: ";
+    // print_vector(y_pred);
+    
+    // try {
+    //     // double acc = ml::common::accuracy(y_true, y_pred);
+    //     // std::cout << "Accuracy: " << acc << "\n";
+
+    //     // double precision = ml::common::precision(y_true, y_pred);
+    //     // std::cout << "Precision: " << precision << "\n";
+        
+    //     // double recall = ml::common::recall(y_true, y_pred);
+    //     // std::cout << "Recall: " << recall << "\n";
+        
+    //     ml::common::ConfusionMatrix matrix = ml::common::confusion_matrix(y_true, y_pred);
+    //     std::cout << "Confusion Matrix:\n";
+    //     print_confusion_matrix(matrix);
+    // } catch (const std::invalid_argument& e) {
+    //     std::cout << "Caught error: " << e.what() << "\n";
+    // }
+
+
+    // // ---------------------
+    // // DISTANCE METRICS – Distance
+    // // ---------------------
+    // // std::vector<double> a_values = {2.0, 5.0};
+    // // std::vector<double> b_values = {5.0, 2.0};
+
+    // // std::cout << "Distance Metrics – Euclidean Distance:\n";
+
+    // // for (std::size_t i = 0; i < a_values.size(); ++i) {
+    // //     double a = a_values[i];
+    // //     double b = b_values[i];
+
+    // //     std::cout << "a: " << a << "\n";
+    // //     std::cout << "b: " << b << "\n";
+
+    // //     std::cout << "Euclidean distance: " << ml::common::euclidean_distance(a, b) << "\n";
+    // // }
+    
+    // // std::vector<double> x_values = {1.0, 2.0};
+    // // std::vector<double> y_values = {4.0, 6.0};
+    // // std::vector<double> x_values = {1.0, 2.0, 3.0};
+    // // std::vector<double> y_values = {1.0, 2.0, 3.0};
+    // // std::vector<double> x_values = {1.0, 2.0};
+    // // std::vector<double> y_values = {1.0, 2.0, 3.0};
+    // std::vector<double> x_values = {};
+    // std::vector<double> y_values = {};
+
+    // std::cout << "x_values: ";
+    // print_vector(x_values);
+    
+    // std::cout << "y_values: ";
+    // print_vector(y_values);
+
+    // try {
+    //     std::cout << "Euclidean distance: " << ml::common::euclidean_distance(x_values, y_values) << "\n";
+    // } catch (std::invalid_argument& e) {
+    //     std::cout << "Caught error: " << e.what() << "\n";
+    // }
+
+
+    // // ---------------------
+    // // k-NN – K selector
+    // // ---------------------
+    // std::vector<int> k_values = {1, 5, 3, 0, -1, 6, 1};
+    // std::vector<std::size_t> n_samples_values = {5, 5, 5, 5, 5, 5, 0};
+
+    // for (std::size_t i = 0; i < k_values.size(); ++i) {
+    //     int k = k_values[i];
+    //     std::size_t n_samples = n_samples_values[i];
+
+    //     std::cout << std::boolalpha;
+
+    //     std::cout << "k: " << k << "\n";
+    //     std::cout << "n_samples: " << n_samples << "\n";
+
+    //     std::cout << "k validity: " << ml::is_valid_k(k, n_samples) << "\n\n";
+    // }
+
+
+    // ---------------------
+    // k-NN – Predict
+    // ---------------------
+    std::cout << "k-NN – Predict:\n";
+
+    std::vector<double> x_train = {1.0, 2.0, 5.0};
+    std::vector<int> y_train = {0, 0, 1};
+    int k = 1;
+    // std::vector<double> x_train = {1.0, 2.0, 3.0}; // majority vote with k = 3
+    // std::vector<int> y_train = {0, 1, 1}; // majority vote with k = 3
+    // int k = 3; // majority vote with k = 3
+    // std::vector<double> x_train = {1.0, 2.0, 4.0, 5.0}; // tie case with even k
+    // std::vector<int> y_train = {0, 0, 1, 1}; // tie case with even k
+    // int k = 4; // tie case with even k
+    // int k = 6; // invalid case
+    // std::vector<double> x_train = {1.0, 2.0, 4.0, 5.0}; // mismatched training sizes
+    // std::vector<int> y_train = {0, 0, 1}; // mismatched training sizes
+    // std::vector<int> y_train = {0, 0, 2, 1}; // invalid label
+
+    std::cout << "x_train: ";
+    print_vector(x_train);
+    
+    std::cout << "y_train: ";
+    print_vector(y_train);
+    
+    std::cout << "k: " << k << "\n";
     
     try {
-        // double acc = ml::common::accuracy(y_true, y_pred);
-        // std::cout << "Accuracy: " << acc << "\n";
-
-        // double precision = ml::common::precision(y_true, y_pred);
-        // std::cout << "Precision: " << precision << "\n";
+        ml::KNNClassifier model(x_train, y_train, k);
         
-        // double recall = ml::common::recall(y_true, y_pred);
-        // std::cout << "Recall: " << recall << "\n";
+        // std::vector<double> x_values = {1.2, 4.8};
+    
+        // for (double x : x_values) {
+        //     std::cout << "x_train: ";
+        //     print_vector(x_train);
+            
+        //     std::cout << "y_train: ";
+        //     print_vector(y_train);
+    
+        //     std::cout << "k: " << k << "\n";
+    
+        //     std::cout << "x: " << x << "\n";
+        //     std::cout << "k-NN predict: " << model.predict(x) << "\n\n";
+        // }
+    
+        // double x = 2.1;
+        // std::vector<double> x_values = {1.2, 4.8};
+        // double x = 3.0;
+        std::vector<double> x_values = {}; // empty query vector
         
-        ml::common::ConfusionMatrix matrix = ml::common::confusion_matrix(y_true, y_pred);
-        std::cout << "Confusion Matrix:\n";
-        print_confusion_matrix(matrix);
-    } catch (const std::invalid_argument& e) {
-        std::cout << "Caught error: " << e.what() << "\n";
+        // std::cout << "x: " << x << "\n";
+        // std::cout << "k-NN predict: " << model.predict(x) << "\n\n";
+        
+        std::cout << "x_values: ";
+        print_vector(x_values);
+        
+        std::cout << "k-NN predict: ";
+        print_vector(model.predict(x_values));
+    } catch (std::invalid_argument& e) {
+        std::cout << "Caugh error: " << e.what() << "\n";
     }
     
     return 0;

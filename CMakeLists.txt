@@ -20,8 +20,11 @@ add_library(ml_core
     src/common/activation_functions.cpp
     src/common/loss_functions.cpp
     src/common/evaluation_metrics.cpp
+    src/common/distance_metrics.cpp
     src/linear_regression/linear_regression.cpp
     src/logistic_regression/logistic_regression.cpp
+    src/knn/knn.cpp
+    src/knn/knn_utils.cpp
     # src/logistic_regression/logistic_regression.cpp
     # src/knn/knn.cpp
     # src/decision_tree/decision_tree.cpp

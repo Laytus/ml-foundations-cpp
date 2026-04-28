@@ -109,9 +109,9 @@ Checklist:
 
 **Time:** 2–3 days
 
-- [ ] Distance
-- [ ] k selection
-- [ ] Predictions
+- [x] Distance
+- [x] k selection
+- [x] Predictions
 
 ---
 
