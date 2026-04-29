@@ -2,7 +2,14 @@
 
 ## General Objective
 
-Build a strong, implementation-based foundation in Machine Learning using modern C++, with deep understanding of core models, optimization, and training dynamics.
+Build a basic, implementation-based introduction to Machine Learning in modern C++, with emphasis on clarity, core model intuition, and simple from-scratch implementations.
+
+This action plan should be understood as a **basic ML fundamentals study**, not as a complete ML foundation and not as sufficient preparation for serious Deep Learning work by itself.
+
+Its role is to:
+- build intuition through implementation
+- practice C++ in a structured ML project
+- create a warm-up foundation before a broader and more serious ML roadmap
 
 ---
 
@@ -121,21 +128,23 @@ Checklist:
 
 **Time:** 4–6 days
 
-- [ ] Splits
-- [ ] Impurity
-- [ ] Tree structure
+- [x] Splits
+- [x] Impurity
+- [x] Tree structure
 
 ---
 
 ## Sub-Phase 9 – Wrap-Up
 
-**Goal:** Consolidate ML knowledge
+**Goal:** Close the repo cleanly and position it correctly as a basic ML fundamentals study
 
-**Time:** 2–3 days
+**Time:** 0.5–1 day
 
-- [ ] Clean repo
-- [ ] Document learnings
-- [ ] Final review
+- [x] Update `README.md` disclaimer and project positioning
+- [x] Update `docs/general/action-plan.md`
+- [x] Update `docs/general/ml-foundations.md`
+- [x] Refactor `main.cpp` to keep it understandable
+- [x] Add short wrap-up summary
 
 ---
 
@@ -145,6 +154,22 @@ Checklist:
 2. Gradient Descent / SGD
 3. Logistic Regression
 4. Feature Scaling
-5. Evaluation
+5. Evaluation Metrics
 6. k-NN
-7. Decision Tree
+7. Decision Tree (simplified)
+
+---
+
+## Final Positioning of This Action Plan
+
+This action plan should be treated as:
+- a completed basic ML implementation study in C++
+- an introductory classical ML warm-up
+- a structured project for learning core concepts through code
+
+It should **not** be treated as:
+- a complete ML curriculum
+- a complete bridge to Deep Learning
+- the final theory foundation required for serious modern ML work
+
+The next step after this repository is a new and more serious ML roadmap designed to cover the missing theoretical, statistical, optimization, and modeling foundations before moving into Deep Learning.

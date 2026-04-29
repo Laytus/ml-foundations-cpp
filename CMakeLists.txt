@@ -25,9 +25,8 @@ add_library(ml_core
     src/logistic_regression/logistic_regression.cpp
     src/knn/knn.cpp
     src/knn/knn_utils.cpp
-    # src/logistic_regression/logistic_regression.cpp
-    # src/knn/knn.cpp
-    # src/decision_tree/decision_tree.cpp
+    src/decision_tree/split_utils.cpp
+    src/decision_tree/impurity_utils.cpp
 )
 
 target_include_directories(ml_core PUBLIC include)

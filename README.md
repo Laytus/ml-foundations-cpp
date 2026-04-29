@@ -1,22 +1,41 @@
 # ML Foundations in C++
 
-A C++ project focused on understanding and implementing the core foundations of Machine Learning from scratch.
+A C++ project focused on understanding and implementing basic Machine Learning foundations from scratch.
+
+---
+
+## Important Disclaimer
+
+This repository is a **basic ML fundamentals study**, not a complete or production-grade Machine Learning framework.
+
+Its purpose is to:
+- build intuition for core ML concepts
+- implement introductory models from first principles in C++
+- practice engineering structure around simple ML systems
+
+It should be understood as:
+- an implementation-based primer
+- a first ML/C++ study project
+- a warm-up before a more complete and serious ML roadmap
+
+It should **not** be understood as:
+- a complete ML foundation by itself
+- sufficient preparation for serious Deep Learning work on its own
+- a production-ready ML library
+
+So this repository is intentionally limited in scope and is best viewed as an introductory foundations project.
 
 ---
 
 ## Overview
 
-This repository is a **serious learning and engineering project** designed to:
+This repository is a structured study project designed to:
 
-- understand Machine Learning deeply
-- implement models from first principles
-- build strong C++ skills in a real project
+- understand basic Machine Learning concepts through implementation
+- practice C++ in a real multi-file project
+- build intuition for how simple ML models work internally
 
-The focust is on **classical Machine Learning**, especially as used in:
-
-- finance
-- tabular data problems
-- real-world predictive systems
+The main focus is on **introductory classical Machine Learning**, especially through small-scale implementations of foundational concepts.
 
 ---
 
@@ -26,12 +45,12 @@ This project includes:
 
 1. Linear Regression
 2. Logistic Regression
-3. Gradient Descent / SGD (core focus)
-4. k-Nearest Neighbors (k-NN)
-5. Feature Scaling
+3. Gradient Descent / SGD
+4. Feature Scaling
+5. k-Nearest Neighbors (k-NN)
 6. Decision Tree (simplified)
 
-These represent the **most important foundational ML techniques**, especially in applied domains like finance.
+These topics are covered at a **basic foundational level**, with emphasis on clarity and implementation rather than completeness.
 
 ---
 
@@ -53,43 +72,103 @@ Code prioritizes:
 - correctness
 - understanding
 
-### Real-world relevance
+### Scope awareness
 
-Focus on techniques actually used in practice.
+This repository intentionally favors:
+- small, understandable implementations
+- simplified versions of core algorithms
+- conceptual clarity over full ML coverage
 
 ---
 
+## What this project does well
+
+This project is useful for:
+
+- understanding basic ML model mechanics
+- practicing simple optimization logic
+- seeing how foundational models can be written in C++
+- building intuition about predictions, losses, and simple data-processing steps
+
+---
+
+## What this project does not try to do
+
+This repository does **not** aim to provide:
+
+- a full treatment of statistical learning theory
+- a complete bridge to Deep Learning by itself
+- advanced model selection or evaluation workflows
+- production-grade training infrastructure
+- advanced tree learning, ensembles, or modern ML systems
+
+Those topics belong to a later and more serious ML phase.
+
+---
 
 ## Expected Outcome
 
-By the end of this project:
+By the end of this repository's intended scope:
 
-- core ML models are implemented in C++
-- optimization is deeply understood
-- training behavior is intuitive
-- codebase is clean and extensible
+- core introductory ML models are implemented in C++
+- simple optimization behavior is more intuitive
+- the codebase serves as a clean study reference
+- the project provides a useful starting point for a more complete ML roadmap
 
 ---
 
 ## Structure
 
-The repository will include:
+The repository includes:
 
 - model implementations
-- shared utilities (math, data)
-- experiments and outputs
-- documentation
+- shared utilities
+- theory notes
+- experiments and test-style demos
+- planning documents
 
 ---
 
 ## Visualization
 
-- results exported as CSV / JSON
-- external visualization if needed
-- focus remains on core ML logic
+- results may be exported as CSV / JSON
+- external visualization may be used if needed
+- the main focus remains on core ML logic and implementation understanding
+
+---
+
+## Wrap-Up Summary
+
+This repository is now complete for its intended limited scope.
+
+What was achieved:
+- basic classical ML models were implemented from scratch in C++
+- core introductory concepts such as prediction, loss, optimization, preprocessing, evaluation, non-parametric prediction, and simplified rule-based learning were explored through code
+- the project became a structured study reference with supporting theory notes and planning documents
+
+What this repository is good for:
+- building first intuition for ML model mechanics
+- practicing C++ through multi-file ML implementations
+- understanding simplified versions of foundational ideas before tackling a broader roadmap
+
+What this repository does **not** provide by itself:
+- a complete ML theory foundation
+- a full statistical learning background
+- sufficient preparation for serious Deep Learning work on its own
+
+So this repository should now be treated as a completed introductory ML/C++ warm-up, and the next step is a more serious and comprehensive ML phase before moving into Deep Learning.
+
+---
+
+## Project Positioning
+
+This repository should be treated as:
+- a completed basic ML fundamentals study in C++
+- a foundation warm-up
+- a precursor to a broader and more serious ML learning plan
 
 ---
 
 See:
-- `ml-foundations.md`
-- `action-plan.md`
+- `docs/general/ml-foundations.md`
+- `docs/general/action-plan.md`
